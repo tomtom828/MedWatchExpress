@@ -6,7 +6,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse,FileResponse
 from .forms import CustomUserCreationForm, UpdateCustomUser
 
 
@@ -25,6 +25,8 @@ class CustomLoginView(LoginView):
 class CustomLogoutView(LoginRequiredMixin, LogoutView):
     template_name = 'accounts/logout.html'
 
+def download(request):
+    return FileResponse(open('/downloads/FDA-3500_508.pdf','rb'), content_type='application/pdf')
 
 def home(request):
     return render(request, 'core/home.html', {})
